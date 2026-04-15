@@ -1,0 +1,28 @@
+import sqlite3
+from functools import wraps
+from flask import session, redirect
+
+
+def get_db_connection():
+    conn = sqlite3.connect("data/database.db")
+    conn.row_factory = sqlite3.Row  # Enable row factory for dict-like access
+    cur = conn.cursor()
+    return conn, cur
+
+
+def login_required(func):
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        if not session.get("id"):
+            return redirect("/login")
+        return func(*args, **kwargs)
+
+    return decorated_view
+
+
+def session_check():
+    if not session.get("name"):
+        return redirect("/login")
+    else:
+        login_check = True
+    return login_check

@@ -1,0 +1,25 @@
+<html>
+    {% include "base/head.html" %}
+    <body>
+        <div class="content">
+            <a href="login">Login</a>
+
+            <form method="POST" action="/register-input">
+
+                <label for="email">Email:</label>
+                <input type="text" name="email" id="email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" required>
+
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" required>
+
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+
+                <label for="password-confirm">Password:</label>
+                <input type="password" name="password-confirm" id="password-confirm" required>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </body>
+</html>

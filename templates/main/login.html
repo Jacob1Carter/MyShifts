@@ -1,0 +1,19 @@
+<html>
+    {% include "base/head.html" %}
+    <body>
+        <div class="content">
+            <a href="register">Register</a>
+
+            <form method="POST" action="/login-input">
+
+                <label for="email">Email:</label>
+                <input type="text" name="email" id="email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" required>
+
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </body>
+</html>
