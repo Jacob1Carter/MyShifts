@@ -5,7 +5,7 @@ from tools import get_db_connection
 import os
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
+app.secret_key = "b'+=\x02\x1eLN\x8dM\xf9\xc7L\xb0\x9b\xe8\x1c\x1c=i28\x021\xb0/'"
 
 
 @app.before_request
@@ -16,7 +16,7 @@ def construct_db():
             pass
     conn, cur = get_db_connection()
     cur.execute(
-        "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT UNIQUE NOT NULL, name TEXT NOT NULL, password_md5 TEXT NOT NULL, datetime TEXT DEFAULT CURRENT_TIMESTAMP)"
+        "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT UNIQUE NOT NULL, name TEXT NOT NULL, password_md5 TEXT NOT NULL, datetime TEXT DEFAULT CURRENT_TIMESTAMP, playerready REAL DEFAULT 0)"
     )
     conn.commit()
     conn.close()

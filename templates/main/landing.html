@@ -2,8 +2,21 @@
     {% include "base/head.html" %}
     <body>
         <div class="content">
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
+            {% if session %}
+                <a href="/logout">Logout</a>
+                {% if playerready %}
+                    <a href="/playerready/">Player Ready</a>
+                {% else %}
+                    <form method="POST" action="/playerready/setup">
+                        <label for="wage">Player Ready - enter wage: </label>
+                        £<input type="number" name="wage" id="wage" value="0" step="0.01" required>
+                        <button type="submit">Submit</button>
+                    </form>
+                {% endif %}
+            {% else %}
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            {% endif %}
         </div>
     </body>
 </html>

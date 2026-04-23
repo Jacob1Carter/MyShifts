@@ -6,7 +6,20 @@ main = Blueprint("main", __name__)
 
 @main.route("/")
 def landing():
-    return render_template("main/landing.html")
+    session_check = False
+    playerready = False
+    id = session.get("id")
+    if id:
+        session_check = True
+        conn, cur = get_db_connection()
+        cur.execute(f"SELECT playerready FROM users WHERE id = {id}")
+        row = cur.fetchone()
+        if row:
+            if row["playerready"] > 0:
+                playerready = True
+        
+        conn.close()
+    return render_template("main/landing.html", session = session_check, playerready = playerready)
 
 
 @main.route("/register")
@@ -35,12 +48,12 @@ def register_input():
             row = cur.fetchone()
             session["id"] = row["id"]
         else:
-            return redirect("/?error=user-exists")
+            return redirect("/register?error=user-exists")
         conn.close()
 
     conn.close()
 
-    return redirect("/logs")
+    return redirect("/")
 
 
 @main.route("/login")
@@ -56,13 +69,22 @@ def login_input():
     conn, cur = get_db_connection()
     cur.execute(f"SELECT id, password_md5 FROM users WHERE email = '{email}'")
     row = cur.fetchone()
-    id = row["id"]
-    password_md5 = row["password_md5"]
-    conn.close()
-    
-    if password_md5:
-        if password.encode("utf-8").hex() == password_md5:
-            session["id"] = id
-    
-            return redirect("/")
+    if row:
+        id = row["id"]
+        password_md5 = row["password_md5"]
+        conn.close()
+        
+        if password_md5:
+            if password.encode("utf-8").hex() == password_md5:
+                session["id"] = id
+        
+                return redirect("/")
     return redirect("/login?error=not-found")
+
+
+@main.route("/logout")
+def logout():
+    if session.get("id"):
+        session["id"] = None
+    
+    return redirect("/")

@@ -1,0 +1,29 @@
+<html>
+    {% include "base/head.html" %}
+    <body>
+        <div class="content">
+            <a href="/">exit</a>
+
+            <form action="/playerready/query" method="POST">
+                <textarea name="query">{{ query }}</textarea>
+                <button type="submit">Submit</button>
+            </form>
+
+            <table>
+                <tr>
+
+                </tr>
+                {% for row in data %}
+                    <tr>
+                        {% for item in row %}
+                            <td>
+                                {{ item }}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+    </body>
+</html>
