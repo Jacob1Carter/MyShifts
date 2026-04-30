@@ -40,10 +40,12 @@ def query():
     try:
         cur.execute(query)
         data = cur.fetchall()
+
+        columns = [desc[0] for desc in cur.description]
     except Exception as e:
         print(e)
 
     conn.commit()
     conn.close()
 
-    return render_template("playerready/query.html", query=query, data=data)
+    return render_template("playerready/query.html", query=query, data=data, columns=columns)

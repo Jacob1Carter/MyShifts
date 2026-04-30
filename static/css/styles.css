@@ -7,3 +7,11 @@
     margin: auto;
 }
 
+
+.query-table, .query-table th, .query-table td{
+    border-collapse: collapse;
+    min-width: 45px;
+    padding: 4px 8px 4px 8px;
+    border: 1px solid;
+    text-align: left;
+}

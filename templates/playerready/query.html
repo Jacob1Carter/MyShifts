@@ -9,9 +9,11 @@
                 <button type="submit">Submit</button>
             </form>
 
-            <table>
+            <table class="query-table">
                 <tr>
-
+                    {% for column in columns %}
+                        <th>{{ column }}</th>
+                    {% endfor %}
                 </tr>
                 {% for row in data %}
                     <tr>
