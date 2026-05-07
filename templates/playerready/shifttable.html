@@ -1,0 +1,49 @@
+<html>
+    {% include "base/head.html" %}
+    <body>
+        <div class="content">
+            <a href="/">exit</a>
+            <a href="/playerready">back</a>
+
+            <form action="/playerready/log-shift" method="POST">
+                <input type="date" id="date" name="date">
+                <input type="time" id="clock-in" name="clock-in">
+                <input type="time" id="clock-out" name="clock-out">
+
+                <button type="submit">Submit</button>
+            </form>
+
+            <table class="shifts-table">
+                <tr>
+                    <th>Day</th>
+                    <th>Clock-in</th>
+                    <th>Clock-out</th>
+                    <th>Duration</th>
+                </tr>
+                {% for day in days %}
+                    <tr>
+                        <td>
+                            {{ days[day]["day"] }}
+                        </td>
+                        <td>
+                            {% for shift in days[day]["shifts"] %}
+                                {{ shift["clock_in"] }}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for shift in days[day]["shifts"] %}
+                                {{ shift["clock_out"] }}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for shift in days[day]["shifts"] %}
+                                {{ shift["duration"] }}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+    </body>
+</html>
