@@ -3,18 +3,16 @@ from tools import login_required, get_db_connection, ordinal
 from datetime import datetime
 import calendar
 import os
-
+import random
 
 playerready = Blueprint("playerready", __name__)
 
 
 @login_required
-@playerready.route("/setup", methods=["POST"])
+@playerready.route("/activate")
 def setup():
-    wage = request.form.get("wage")
-    conn, cur = get_db_connection()
     id = session.get("id")
-    cur.execute(f"UPDATE users SET playerready = {float(wage)} WHERE id = {id}")
+    conn, cur = get_db_connection()
     cur.execute(
         f"CREATE TABLE IF NOT EXISTS playerready_{id} (id INTEGER PRIMARY KEY AUTOINCREMENT, clock_in TEXT UNIQUE NOT NULL, clock_out TEXT NOT NULL, shift_type TEXT NOT NULL, pay_rate REAL DEFAULT 100)"
     )
@@ -95,6 +93,7 @@ def shifttable():
             shifts.append({"id": row["id"], "clock_in": clock_in_str, "clock_out": clock_out_str, "duration": duration_str})
     
         days_json[date_str] = {"day": day_str, "shifts": shifts}
+
     
     return render_template("playerready/shifttable.html", days=days_json)
 

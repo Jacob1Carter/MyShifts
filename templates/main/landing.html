@@ -4,15 +4,16 @@
         <div class="content">
             {% if session %}
                 <a href="/logout">Logout</a>
-                {% if playerready %}
-                    <a href="/playerready/">Player Ready</a>
-                {% else %}
-                    <form method="POST" action="/playerready/setup">
-                        <label for="wage">Player Ready - enter wage: </label>
-                        £<input type="number" name="wage" id="wage" value="0" step="0.01" required>
-                        <button type="submit">Submit</button>
-                    </form>
-                {% endif %}
+                <div>
+                    <h3>Player Ready</h3>
+                    {% if playerready %}
+                        <a href="/playerready/">Dashboard</a>
+                        <a href="/playerready/shifttable">Shifts table</a>
+                        <a href="/playerready/query">Query</a>
+                    {% else %}
+                        <a href="/playerready/activate">Activate</a>
+                    {% endif %}
+                </div>
             {% else %}
                 <a href="/login">Login</a>
                 <a href="/register">Register</a>

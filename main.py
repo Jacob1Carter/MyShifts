@@ -16,7 +16,7 @@ def construct_db():
             pass
     conn, cur = get_db_connection()
     cur.execute(
-        "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT UNIQUE NOT NULL, name TEXT NOT NULL, password_md5 TEXT NOT NULL, datetime TEXT DEFAULT CURRENT_TIMESTAMP, playerready REAL DEFAULT 0)"
+        "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT UNIQUE NOT NULL, name TEXT NOT NULL, password_md5 TEXT NOT NULL, datetime TEXT DEFAULT CURRENT_TIMESTAMP)"
     )
     conn.commit()
     conn.close()
